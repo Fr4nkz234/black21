@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_USER=blackjack_user
+      - DB_PASSWORD=secure_password_123
+      - DB_NAME=blackjack_casino
+      - SESSION_SECRET=your_super_secret_session_key_here_change_in_production
+    depends_on:
+      - db
+    volumes:
+      - ./public:/app/public
+    networks:
+      - blackjack-network
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123
+      MYSQL_DATABASE: blackjack_casino
+      MYSQL_USER: blackjack_user
+      MYSQL_PASSWORD: secure_password_123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - blackjack-network
+
+volumes:
+  mysql_data:
+
+networks:
+  blackjack-network:
+    driver: bridge

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Blackjack Pixel Casino</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Pantalla de Login/Register -->
+    <div id="authScreen" class="screen active">
+        <div class="casino-header">
+            <h1 class="neon-text">🎰 BLACKJACK CASINO 🎰</h1>
+            <div class="subtitle">PIXEL EDITION</div>
+        </div>
+        
+        <div class="auth-container">
+            <!-- Formulario de Login -->
+            <div id="loginForm" class="auth-form active">
+                <h2>🎯 INICIAR SESIÓN</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">📧 Correo Electrónico</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                        <span class="error-message" id="loginEmailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">🔒 Contraseña</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+                    
+                    <button type="submit" class="pixel-button primary">🎮 ENTRAR AL CASINO</button>
+                </form>
+                
+                <div class="auth-switch">
+                    <span>¿No tienes cuenta?</span>
+                    <button class="link-button" onclick="showRegisterForm()">🆕 Registrarse</button>
+                </div>
+            </div>
+            
+            <!-- Formulario de Registro -->
+            <div id="registerForm" class="auth-form">
+                <h2>🆕 REGISTRO DE JUGADOR</h2>
+                <form id="registerFormElement">
+                    <div class="form-group">
+                        <label for="regUsername">👤 Nombre de Usuario</label>
+                        <input type="text" id="regUsername" name="username" required 
+                               minlength="3" maxlength="20" pattern="[a-zA-Z0-9_-]+">
+                        <span class="help-text">3-20 caracteres, solo letras, números, - y _</span>
+                        <span class="error-message" id="regUsernameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regEmail">📧 Correo Electrónico</label>
+                        <input type="email" id="regEmail" name="email" required>
+                        <span class="error-message" id="regEmailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regBirthDate">🎂 Fecha de Nacimiento</label>
+                        <input type="date" id="regBirthDate" name="birthDate" required>
+                        <span class="help-text">Debes tener al menos 18 años</span>
+                        <span class="error-message" id="regBirthDateError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPhone">📱 Teléfono (República Dominicana)</label>
+                        <input type="tel" id="regPhone" name="phone" required 
+                               placeholder="8091234567" pattern="(809|829|849)[0-9]{7}">
+                        <span class="help-text">Formato: 809/829/849 + 7 dígitos</span>
+                        <span class="error-message" id="regPhoneError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPassword">🔒 Contraseña Segura</label>
+                        <input type="password" id="regPassword" name="password" required>
+                        <span class="help-text">Mín. 8 chars, 1 mayús, 1 minús, 1 núm, 1 especial</span>
+                        <div class="password-strength" id="passwordStrength"></div>
+                        <span class="error-message" id="regPasswordError"></span>
+                    </div>
+                    
+                    <button type="submit" class="pixel-button primary">🎰 CREAR CUENTA</button>
+                </form>
+                
+                <div class="auth-switch">
+                    <span>¿Ya tienes cuenta?</span>
+                    <button class="link-button" onclick="showLoginForm()">🎯 Iniciar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pantalla de Juego -->
+    <div id="gameScreen" class="screen">
+        <div class="game-header">
+            <div class="player-info">
+                <span id="playerName">👤 Jugador</span>
+                <span id="playerBalance" class="balance">💰 $1000</span>
+            </div>
+            <h1 class="game-title">🎰 BLACKJACK 21</h1>
+            <button class="pixel-button secondary" onclick="logout()">🚪 Salir</button>
+        </div>
+        
+        <!-- Área del Dealer -->
+        <div class="dealer-area">
+            <div class="dealer-avatar">🤖</div>
+            <div class="dealer-info">
+                <h3>🎩 DEALER</h3>
+                <div class="hand-value" id="dealerValue">Valor: ?</div>
+            </div>
+            <div class="dealer-cards" id="dealerCards"></div>
+        </div>
+        
+        <!-- Mesa de juego -->
+        <div class="game-table">
+            <div class="table-felt">
+                <!-- Área de apuesta -->
+                <div class="bet-area">
+                    <div class="bet-circle">
+                        <div class="bet-amount" id="currentBet">$0</div>
+                        <div class="bet-label">APUESTA</div>
+                    </div>
+                </div>
+                
+                <!-- Fichas -->
+                <div class="chips-container">
+                    <div class="chip" data-value="10" onclick="placeBet(10)">
+                        <span class="chip-value">$10</span>
+                    </div>
+                    <div class="chip" data-value="25" onclick="placeBet(25)">
+                        <span class="chip-value">$25</span>
+                    </div>
+                    <div class="chip" data-value="50" onclick="placeBet(50)">
+                        <span class="chip-value">$50</span>
+                    </div>
+                    <div class="chip" data-value="100" onclick="placeBet(100)">
+                        <span class="chip-value">$100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Área del Jugador -->
+        <div class="player-area">
+            <div class="player-info-game">
+                <h3 id="playerNameGame">👤 JUGADOR</h3>
+                <div class="hand-value" id="playerValue">Valor: 0</div>
+            </div>
+            <div class="player-cards" id="playerCards"></div>
+        </div>
+        
+        <!-- Controles del juego -->
+        <div class="game-controls">
+            <button id="dealBtn" class="pixel-button primary" onclick="startGame()">
+                🃏 REPARTIR CARTAS
+            </button>
+            <button id="hitBtn" class="pixel-button secondary" onclick="hit()" disabled>
+                ➕ PEDIR CARTA
+            </button>
+            <button id="standBtn" class="pixel-button secondary" onclick="stand()" disabled>
+                🛑 PLANTARSE
+            </button>
+            <button id="newGameBtn" class="pixel-button primary" onclick="newGame()" style="display:none;">
+                🔄 NUEVA PARTIDA
+            </button>
+        </div>
+        
+        <!-- Mensajes del juego -->
+        <div class="game-message" id="gameMessage"></div>
+    </div>
+    
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner">🎰</div>
+        <div>Cargando...</div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
