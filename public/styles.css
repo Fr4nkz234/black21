@@ -1,9 +1,9 @@
-/* === ESTILOS PIXEL ART BLACKJACK CASINO === */
 
-/* Fuente pixel art */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* Reset y configuración base */
+
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ body {
     line-height: 1.6;
 }
 
-/* Animaciones principales */
+
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -59,7 +59,7 @@ body {
     50% { opacity: 0.7; }
 }
 
-/* === PANTALLAS Y LAYOUT === */
+
 .screen {
     display: none;
     min-height: 100vh;
@@ -71,7 +71,7 @@ body {
     display: block;
 }
 
-/* === HEADER DEL CASINO === */
+
 .casino-header {
     text-align: center;
     margin-bottom: 40px;
@@ -96,7 +96,7 @@ body {
     letter-spacing: 3px;
 }
 
-/* === CONTENEDOR DE AUTENTICACIÓN === */
+
 .auth-container {
     max-width: 500px;
     margin: 0 auto;
@@ -126,7 +126,7 @@ body {
     text-shadow: 0 0 10px #ffd700;
 }
 
-/* === FORMULARIOS === */
+
 .form-group {
     margin-bottom: 25px;
 }
@@ -165,7 +165,7 @@ body {
     border-color: #ff6b6b;
 }
 
-/* Textos de ayuda y errores */
+
 .help-text {
     display: block;
     font-size: clamp(0.4rem, 1vw, 0.6rem);
@@ -183,7 +183,7 @@ body {
     line-height: 1.4;
 }
 
-/* Indicador de fortaleza de contraseña */
+
 .password-strength {
     height: 5px;
     background: #333;
@@ -220,7 +220,7 @@ body {
     background: #4ecdc4;
 }
 
-/* === BOTONES === */
+
 .pixel-button {
     font-family: 'Press Start 2P', cursive;
     font-size: clamp(0.5rem, 1.2vw, 0.8rem);
@@ -298,7 +298,7 @@ body {
     color: #ffd700;
 }
 
-/* === PANTALLA DE JUEGO === */
+
 .game-header {
     display: flex;
     justify-content: space-between;
@@ -333,7 +333,7 @@ body {
     text-shadow: 0 0 5px #4ecdc4;
 }
 
-/* === ÁREA DEL DEALER === */
+
 .dealer-area {
     display: flex;
     align-items: center;
@@ -430,7 +430,7 @@ body {
     margin-top: 5px;
 }
 
-/* === FICHAS === */
+
 .chips-container {
     display: flex;
     gap: 15px;
@@ -564,7 +564,7 @@ body {
     color: #ffd700;
 }
 
-/* === CONTROLES DEL JUEGO === */
+
 .game-controls {
     display: flex;
     justify-content: center;
@@ -573,7 +573,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* === MENSAJES DEL JUEGO === */
+
 .game-message {
     text-align: center;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -590,7 +590,7 @@ body {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* === CAMBIO DE FORMULARIOS === */
+
 .auth-switch {
     text-align: center;
     margin-top: 25px;
@@ -598,7 +598,7 @@ body {
     color: #ccc;
 }
 
-/* === LOADING SPINNER === */
+
 .loading-spinner {
     display: none;
     position: fixed;
@@ -630,9 +630,9 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* === RESPONSIVE DESIGN === */
 
-/* Tablets */
+
+
 @media (max-width: 768px) {
     .game-header {
         flex-direction: column;
@@ -674,7 +674,7 @@ body {
     }
 }
 
-/* Móviles */
+
 @media (max-width: 480px) {
     .screen {
         padding: 10px;
@@ -723,7 +723,7 @@ body {
     }
 }
 
-/* Ajustes para pantallas muy pequeñas */
+
 @media (max-width: 320px) {
     .chips-container {
         flex-direction: column;
@@ -740,7 +740,7 @@ body {
     }
 }
 
-/* Pantallas grandes */
+
 @media (min-width: 1200px) {
     .game-table {
         max-width: 1000px;
@@ -767,7 +767,7 @@ body {
     }
 }
 
-/* === ANIMACIONES DE VICTORIA/DERROTA === */
+
 .win-animation {
     animation: winPulse 1s ease-in-out;
     color: #4ecdc4 !important;
@@ -789,7 +789,7 @@ body {
     75% { transform: scale(1.05); }
 }
 
-/* === EFECTOS ESPECIALES === */
+
 .sparkle::after {
     content: '✨';
     position: absolute;
@@ -803,7 +803,7 @@ body {
     50% { opacity: 1; transform: scale(1); }
 }
 
-/* Cursor personalizado para área de juego */
+
 .game-table {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23ffd700" stroke="%23000" stroke-width="2"/></svg>'), auto;
 }

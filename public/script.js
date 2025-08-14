@@ -554,14 +554,14 @@ function determineWinner() {
     } else {
         result = 'tie';
         message = '🤝 Empate';
-        winnings = gameState.currentBet; // Devolver apuesta
+        winnings = gameState.currentBet; 
     }
     
-    // Blackjack natural (21 con 2 cartas)
+    
     if (playerValue === 21 && gameState.playerCards.length === 2 && dealerValue !== 21) {
         result = 'win';
         message = '🃏 ¡BLACKJACK! 🎰';
-        winnings = Math.floor(gameState.currentBet * 2.5); // Pago 3:2
+        winnings = Math.floor(gameState.currentBet * 2.5); 
     }
     
     endGame(result, message, winnings);
@@ -571,21 +571,21 @@ async function endGame(result, message, winnings = 0) {
     gameState.gameActive = false;
     gameState.playerTurn = false;
     
-    // Actualizar saldo
+    
     gameState.balance += winnings;
     updatePlayerInfo();
     
-    // Mostrar mensaje con animación
+    
     const messageElement = document.getElementById('gameMessage');
     messageElement.textContent = message;
     messageElement.className = `game-message ${result}-animation`;
     
-    // Actualizar controles
+   
     document.getElementById('hitBtn').disabled = true;
     document.getElementById('standBtn').disabled = true;
     document.getElementById('newGameBtn').style.display = 'inline-block';
     
-    // Guardar resultado en base de datos
+    
     if (gameState.user) {
         try {
             await fetch('/api/game-result', {
@@ -617,20 +617,20 @@ function resetGame() {
     gameState.playerCards = [];
     gameState.dealerCards = [];
     
-    // Limpiar display de cartas
+    
     document.getElementById('playerCards').innerHTML = '';
     document.getElementById('dealerCards').innerHTML = '';
     document.getElementById('playerValue').textContent = 'Valor: 0';
     document.getElementById('dealerValue').textContent = 'Valor: ?';
     document.getElementById('gameMessage').textContent = '';
     
-    // Resetear controles
+    
     document.getElementById('hitBtn').disabled = true;
     document.getElementById('standBtn').disabled = true;
     document.getElementById('newGameBtn').style.display = 'none';
 }
 
-// Calcular valor de mano (manejar ases)
+
 function calculateHandValue(cards) {
     let value = 0;
     let aces = 0;
@@ -646,7 +646,7 @@ function calculateHandValue(cards) {
         }
     }
     
-    // Convertir ases de 11 a 1 si es necesario
+    
     while (value > 21 && aces > 0) {
         value -= 10;
         aces--;
@@ -655,7 +655,7 @@ function calculateHandValue(cards) {
     return value;
 }
 
-// Actualizar display de cartas
+
 function updateCardDisplay() {
     updatePlayerCards();
     updateDealerCards();
@@ -674,7 +674,7 @@ function updatePlayerCards() {
     const value = calculateHandValue(gameState.playerCards);
     document.getElementById('playerValue').textContent = `Valor: ${value}`;
     
-    // Animación si se pasa de 21
+    
     if (value > 21) {
         container.classList.add('lose-animation');
     }
@@ -719,7 +719,7 @@ function createCardElement(card) {
     return cardDiv;
 }
 
-// === UTILIDADES ===
+
 function showMessage(text, type = 'info') {
     const messageElement = document.getElementById('gameMessage');
     if (messageElement) {
@@ -727,14 +727,14 @@ function showMessage(text, type = 'info') {
         messageElement.className = `game-message ${type}`;
     }
     
-    // También mostrar en consola para debug
+    
     console.log(`[${type.toUpperCase()}] ${text}`);
 }
 
 function showError(message) {
     showMessage(message, 'error');
     
-    // Mostrar también como alert para errores críticos
+    
     if (message.includes('conexión') || message.includes('servidor')) {
         setTimeout(() => alert(message), 100);
     }
@@ -749,7 +749,7 @@ function showLoading(show) {
     }
 }
 
-// === MANEJO DE ERRORES GLOBAL ===
+
 window.addEventListener('error', function(e) {
     console.error('Error global:', e.error);
     showError('Ha ocurrido un error inesperado');
@@ -760,8 +760,7 @@ window.addEventListener('unhandledrejection', function(e) {
     showError('Error de conexión con el servidor');
 });
 
-// === FUNCIONES GLOBALES PARA HTML ===
-// Estas funciones son llamadas desde el HTML
+
 window.showLoginForm = showLoginForm;
 window.showRegisterForm = showRegisterForm;
 window.logout = logout;
@@ -771,7 +770,7 @@ window.hit = hit;
 window.stand = stand;
 window.newGame = newGame;
 
-// === DEBUG (solo en desarrollo) ===
+
 if (window.location.hostname === 'localhost') {
     window.gameState = gameState;
     window.debugAddBalance = function(amount) {
